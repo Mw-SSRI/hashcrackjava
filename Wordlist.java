@@ -41,15 +41,15 @@ public class Wordlist {
 
             while (!hashata.equalsIgnoreCase(hashdatrovare) && sc.hasNextLine()) {
 
-                    //String i = sc.nextLine();
+                    String i = sc.nextLine();
 
-                    hashata = calcolaHash.gethash(sc.nextLine());
+                    hashata = calcolaHash.gethash(i);
 
-                    System.out.println(sc.nextLine());
+                    System.out.println(i);
 
                     if (hashata.equalsIgnoreCase(hashdatrovare))
 
-                        System.err.println("Password trovata: " + sc.nextLine());
+                        System.err.println("Password trovata: " + i);
 
             }
 
