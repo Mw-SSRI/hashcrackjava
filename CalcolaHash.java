@@ -1,6 +1,6 @@
 /**
- * La classe CalcolaHash contiene due importanti metodi, sethashfunction e gethash. sethashfunction serve
- * per settare il tipo di hash inserito dall'utente. Gethash invece, attraverso il metodo getInstance
+ * La classe CalcolaHash contiene due importanti metodi, sethashfunction e calcolahash. sethashfunction serve
+ * per settare il tipo di hash inserito dall'utente. calcolahash invece, attraverso il metodo getInstance
  * della classe Java MessageDigest, calcola l'hash di ogni linea del file txt utilizzato dalla classe
  * Wordlist. Viene utilizzato anche nella classe bruteforce per calcolare ogni hash corrispondente alle
  * stringhe generate.
@@ -43,17 +43,15 @@ public class CalcolaHash {
 
         //--------------------------------------------------------------------------------------------------------------
         //Metodo per calcolare l'hash delle password da confrontare con l'hash dato
-        public String gethash(String input) {
+        public String calcolahash(String input) {
 
             try {
 
-                MessageDigest md = MessageDigest.getInstance(algorithm);
+                byte[] messageDigest = MessageDigest.getInstance(algorithm).digest(input.getBytes());
 
-                byte[] messageDigest = md.digest(input.getBytes());
+                BigInteger decimal = new BigInteger(1, messageDigest);
 
-                BigInteger no = new BigInteger(1, messageDigest);
-
-                String hashtext = no.toString(16);
+                String hashtext = decimal.toString(16);
 
                 while (hashtext.length() < 32) {
                     hashtext = "0" + hashtext;

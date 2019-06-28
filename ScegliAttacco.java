@@ -10,6 +10,7 @@ package hashcrack;
 import java.io.IOException;
 import java.util.Scanner;
 
+
 public class ScegliAttacco {
 
     Scanner tastiera = new Scanner(System.in);
@@ -18,11 +19,11 @@ public class ScegliAttacco {
 
     private String scelta;
 
-
-
     //------------------------------------------------------------------------------------------------------------------
     //Metodo che serve a impostare l'hash che l'utente vuole crackare
     public String gethashdatrovare(){
+
+        System.out.println("Inserire l'hash di cui si vuole testare la sicurezza:");
 
         hashdatrovare = tastiera.nextLine();
 

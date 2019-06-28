@@ -2,7 +2,7 @@
  * La classe Wordlist contiene un metodo chiamato wordlist il quale fa in modo che l'utente
  * possa trovare l'hash originale basandosi su una lista di password comuni contenute in un file
  * txt. Il suddetto metodo prende ogni linea del file txt indicato, ne calcola l'hash attraverso
- * il metodo gethash della classe CalcolaHash e le confronta con l'hash inserito dall'utente fino
+ * il metodo calcolahash della classe CalcolaHash e le confronta con l'hash inserito dall'utente fino
  * a quando non trova una corrispondenza.
  */
 
@@ -14,56 +14,51 @@ import java.util.Scanner;
 
 public class Wordlist {
 
-    Scanner tastiera = new Scanner(System.in);
-
+    //------------------------------------------------------------------------------------------------------------------
+    //variabili
     CalcolaHash calcolaHash = new CalcolaHash();
 
     ScegliAttacco scegliAttacco = new ScegliAttacco();
 
     private String hashdatrovare;
+
+    private String hashata = "";
+
+    Scanner tastiera = new Scanner(System.in);
+
+    //------------------------------------------------------------------------------------------------------------------
+
     //------------------------------------------------------------------------------------------------------------------
     //Metodo che esegue l'attacco wordlist
-    public void wordlist() {
+    public void wordlist() throws FileNotFoundException {
 
-        System.out.println("Inserire l'hash di cui si vuole testare la sicurezza:");
+        System.out.println("Inserire il path della wordlist:");
+
+        File file = new File(tastiera.nextLine());
+
+        Scanner leggifile = new Scanner(file);
 
         hashdatrovare = scegliAttacco.gethashdatrovare();
 
         calcolaHash.sethashfunction();
 
-        File file = new File("C:\\Users\\Galaxy\\Desktop\\paroleitaliane-master\\rockyou.txt");
+        while (!hashata.equalsIgnoreCase(hashdatrovare) && leggifile.hasNextLine()) {
 
-        try {
+                String linea = leggifile.nextLine();
 
-            Scanner sc = new Scanner(file);
+                hashata = calcolaHash.calcolahash(linea);
 
-            String hashata = "";
+                System.out.println(linea);
 
-            while (!hashata.equalsIgnoreCase(hashdatrovare) && sc.hasNextLine()) {
+                if (hashata.equalsIgnoreCase(hashdatrovare))
 
-                    String i = sc.nextLine();
+                    System.err.println("Password trovata: " + linea);
 
-                    hashata = calcolaHash.gethash(i);
+        }
 
-                    System.out.println(i);
+        if(!hashata.equalsIgnoreCase(hashdatrovare)){
 
-                    if (hashata.equalsIgnoreCase(hashdatrovare))
-
-                        System.err.println("Password trovata: " + i);
-
-            }
-
-            if(!hashata.equalsIgnoreCase(hashdatrovare)){
-
-                System.err.println("Password non trovata nella wordlist");
-
-            }
-
-            sc.close();
-
-        } catch (FileNotFoundException e) {
-
-            e.printStackTrace();
+            System.err.println("Password non trovata nella wordlist.");
 
         }
 

@@ -1,7 +1,8 @@
 /**
- * La seguente classe, denominata Bruteforce, calcola l'hash di ogni stringa possibile basandosi
- * sul charset ASCII. E' possibile scegliere la lunghezza della password da crackare se è conosciuta,
- * stesso discorso per il set di caratteri.
+ * La seguente classe, denominata Bruteforce, attraverso il metodo bruteforce insieme al metodo calcolahash,
+ * calcola l'hash di ogni stringa possibile basandosi sul charset ASCII e le confronta con l'hash dato. E'
+ * possibile scegliere il set di caratteri per evitare di perdere tempo, nel caso in cui si sappia il charset
+ * utilizzato e si voglia accorciare i tempi.
  */
 
 package hashcrack;
@@ -31,7 +32,8 @@ public class Bruteforce {
     private int k =0;
     private int n;
     private String prefix = "";
-    private String sceltaattacco="";
+
+    private String sceltaformato ="";
 
     private String hashdatrovare;
 
@@ -42,17 +44,15 @@ public class Bruteforce {
     //------------------------------------------------------------------------------------------------------------------
     public void bruteforce() {
 
-        System.out.println("Inserire l'hash di cui si vuole testare la sicurezza:");
-
         hashdatrovare = scegliAttacco.gethashdatrovare();
 
         algorithm = calcolaHash.sethashfunction();
 
         System.out.println("Inserire il formato della password scegliendo tra: numeri, minuscole, maiuscole,lettere,ascii");
 
-        sceltaattacco = tastiera.next();
+        sceltaformato = tastiera.next();
 
-        if(sceltaattacco.equalsIgnoreCase("numeri")){
+        if(sceltaformato.equalsIgnoreCase("numeri")){
 
             scelta = numeri;
 
@@ -60,7 +60,7 @@ public class Bruteforce {
 
         }
 
-        else if(sceltaattacco.equalsIgnoreCase("minuscole")){
+        else if(sceltaformato.equalsIgnoreCase("minuscole")){
 
             scelta = minuscole;
 
@@ -68,7 +68,7 @@ public class Bruteforce {
 
         }
 
-        else if(sceltaattacco.equalsIgnoreCase("maiuscole")){
+        else if(sceltaformato.equalsIgnoreCase("maiuscole")){
 
             scelta = maiuscole;
 
@@ -76,7 +76,7 @@ public class Bruteforce {
 
         }
 
-        else if(sceltaattacco.equalsIgnoreCase("lettere")){
+        else if(sceltaformato.equalsIgnoreCase("lettere")){
 
             scelta = lettere;
 
@@ -84,7 +84,7 @@ public class Bruteforce {
 
         }
 
-        else if(sceltaattacco.equalsIgnoreCase("ascii")){
+        else if(sceltaformato.equalsIgnoreCase("ascii")){
 
             scelta = ascii;
 
@@ -100,17 +100,17 @@ public class Bruteforce {
 
         for(int k = 0; k < 20; k++) {
 
-            printAllKLengthRec(scelta, prefix, n, k);
+            genera(scelta, prefix, n, k);
 
         }
 
     }
 
-    public void printAllKLengthRec(char[] scelta, String prefix, int n, int k) {
+    public void genera(char[] scelta, String prefix, int n, int k) {
 
         if (k == 0) {
 
-            hashata  = calcolaHash.gethash(prefix);
+            hashata  = calcolaHash.calcolahash(prefix);
 
             System.out.println(prefix);
 
@@ -130,7 +130,7 @@ public class Bruteforce {
 
             String newPrefix = prefix + scelta[i];
 
-            printAllKLengthRec(scelta, newPrefix, n, k - 1);
+            genera(scelta, newPrefix, n, k - 1);
 
             i++;
 

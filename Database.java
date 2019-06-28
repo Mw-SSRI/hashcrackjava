@@ -26,8 +26,6 @@ public class Database {
 
     public void database() throws IOException {
 
-        System.out.println("Inserire l'hash di cui si vuole testare la sicurezza:");
-
         hashdatrovare = scegliAttacco.gethashdatrovare();
 
         algorithm = calcolaHash.sethashfunction();
@@ -51,7 +49,7 @@ public class Database {
 
         else {
 
-            System.err.println("Password trovata: "+risposta);
+            System.err.println("Password trovata: " + risposta);
 
         }
 
