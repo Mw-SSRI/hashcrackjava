@@ -13,21 +13,15 @@ import java.util.Scanner;
 
 public class ScegliAttacco {
 
-    private Scanner tastiera = new Scanner(System.in);
-
-    private String hashdatrovare;
-
-    private String scelta;
+    private static final Scanner tastiera = new Scanner(System.in);
 
     //------------------------------------------------------------------------------------------------------------------
     //Metodo che serve a impostare l'hash che l'utente vuole crackare
-    public String gethashdatrovare(){
+    private String gethashdatrovare(){
 
         System.out.println("Inserire l'hash di cui si vuole testare la sicurezza:");
 
-        hashdatrovare = tastiera.nextLine();
-
-        return hashdatrovare;
+         return tastiera.nextLine();
 
     }
     //------------------------------------------------------------------------------------------------------------------
@@ -38,13 +32,15 @@ public class ScegliAttacco {
     //Metodo che serve per far scegliere all'utente l'attacco da effettuare per crackare l'hash
     public void choose() throws IOException {
 
+        String hashdatrovare = this.gethashdatrovare();
+
         System.out.println("Inserire il tipo di attacco da effettuare scegliendo tra bruteforce, wordlist e database: ");
 
-        scelta = tastiera.nextLine();
+        String scelta = tastiera.nextLine();
 
         if(scelta.equalsIgnoreCase("bruteforce")){
 
-            Bruteforce bruteForce = new Bruteforce();
+            Bruteforce bruteForce = new Bruteforce(hashdatrovare);
 
             bruteForce.bruteforce();
 
@@ -52,7 +48,7 @@ public class ScegliAttacco {
 
         else if(scelta.equalsIgnoreCase("wordlist")){
 
-            Wordlist wordList = new Wordlist();
+            Wordlist wordList = new Wordlist(hashdatrovare);
 
             wordList.wordlist();
 
@@ -60,7 +56,7 @@ public class ScegliAttacco {
 
         else if(scelta.equalsIgnoreCase("database")){
 
-            Database dataBase = new Database();
+            Database dataBase = new Database(hashdatrovare);
 
             dataBase.database();
 

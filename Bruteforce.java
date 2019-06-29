@@ -12,10 +12,8 @@ import java.util.Scanner;
 public class Bruteforce {
     //------------------------------------------------------------------------------------------------------------------
     //variabili
-    Scanner tastiera = new Scanner(System.in);
-    ScegliAttacco scegliAttacco = new ScegliAttacco();
-    CalcolaHash calcolaHash = new CalcolaHash();
-    private char [] scelta;
+    private Scanner tastiera = new Scanner(System.in);
+    private CalcolaHash calcolaHash = new CalcolaHash();
     private char[] numeri = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     private char[] minuscole = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
             'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
@@ -29,34 +27,34 @@ public class Bruteforce {
             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6',
             '7', '8', '9', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<',
             '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'};
-    private int k =0;
-    private int n;
-    private String prefix = "";
-
-    private String sceltaformato ="";
 
     private String hashdatrovare;
 
-    private String algorithm;
-
     private String hashata = "";
+
+    public Bruteforce(String hashdatrovare) {
+
+        this.hashdatrovare = hashdatrovare;
+
+    }
 
     //------------------------------------------------------------------------------------------------------------------
     public void bruteforce() {
 
-        hashdatrovare = scegliAttacco.gethashdatrovare();
+        calcolaHash.sethashfunction();
 
-        algorithm = calcolaHash.sethashfunction();
+        System.out.println("Inserire il formato della password scegliendo tra: numeri, minuscole, maiuscole,lettere, " +
+                "altrimenti ascii se non si sa com'è formata la password.");
 
-        System.out.println("Inserire il formato della password scegliendo tra: numeri, minuscole, maiuscole,lettere,ascii");
+        String sceltaformato = tastiera.next();
 
-        sceltaformato = tastiera.next();
-
+        char[] scelta;
+        int lunghezzacharset;
         if(sceltaformato.equalsIgnoreCase("numeri")){
 
             scelta = numeri;
 
-            n = numeri.length;
+            lunghezzacharset = numeri.length;
 
         }
 
@@ -64,7 +62,7 @@ public class Bruteforce {
 
             scelta = minuscole;
 
-            n = minuscole.length;
+            lunghezzacharset = minuscole.length;
 
         }
 
@@ -72,7 +70,7 @@ public class Bruteforce {
 
             scelta = maiuscole;
 
-            n = maiuscole.length;
+            lunghezzacharset = maiuscole.length;
 
         }
 
@@ -80,7 +78,7 @@ public class Bruteforce {
 
             scelta = lettere;
 
-            n = lettere.length;
+            lunghezzacharset = lettere.length;
 
         }
 
@@ -88,7 +86,7 @@ public class Bruteforce {
 
             scelta = ascii;
 
-            n = ascii.length;
+            lunghezzacharset = ascii.length;
 
         }
 
@@ -96,27 +94,33 @@ public class Bruteforce {
 
             System.out.println("Input non valido.");
 
+            return;
+
         }
 
-        for(int k = 0; k < 20; k++) {
 
-            genera(scelta, prefix, n, k);
+
+        for(int numeroPermutati = 0; numeroPermutati < 20; numeroPermutati++) {
+
+            String prefisso = "";
+
+            genera(scelta, prefisso, lunghezzacharset, numeroPermutati);
 
         }
 
     }
 
-    public void genera(char[] scelta, String prefix, int n, int k) {
+    private void genera(char[] scelta, String prefisso, int lunghezzacharset, int numeroPermutati) {
 
-        if (k == 0) {
+        if (numeroPermutati == 0) {
 
-            hashata  = calcolaHash.calcolahash(prefix);
+            hashata  = calcolaHash.calcolahash(prefisso);
 
-            System.out.println(prefix);
+            System.out.println(prefisso);
 
             if(hashata.equalsIgnoreCase(hashdatrovare)){
 
-                System.err.println("Password trovata: " + prefix);
+                System.err.println("Password trovata: " + prefisso);
 
             }
 
@@ -126,11 +130,11 @@ public class Bruteforce {
 
         int i = 0;
 
-        while (i < n&&!hashata.equalsIgnoreCase(hashdatrovare)) {
+        while ((i < lunghezzacharset) && (!hashata.equalsIgnoreCase(hashdatrovare))) {
 
-            String newPrefix = prefix + scelta[i];
+            String nuovoPrefisso = prefisso + scelta[i];
 
-            genera(scelta, newPrefix, n, k - 1);
+            genera(scelta, nuovoPrefisso, lunghezzacharset, numeroPermutati - 1);
 
             i++;
 

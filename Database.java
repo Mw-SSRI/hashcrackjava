@@ -18,22 +18,23 @@ public class Database {
 
     private String hashdatrovare;
 
-    private String algorithm;
+    private CalcolaHash calcolaHash;
 
-    CalcolaHash calcolaHash = new CalcolaHash();
+    public Database(String hashdatrovare) {
 
-    ScegliAttacco scegliAttacco = new ScegliAttacco();
+        this.hashdatrovare = hashdatrovare;
+
+        calcolaHash = new CalcolaHash();
+    }
 
     public void database() throws IOException {
 
-        hashdatrovare = scegliAttacco.gethashdatrovare();
-
-        algorithm = calcolaHash.sethashfunction();
+        String algorithm = calcolaHash.sethashfunction();
 
         System.out.println("Sto cercando...");
 
         URL indirizzo = new URL("https://md5decrypt.net/en/Api/api.php?hash="+hashdatrovare+"&hash_type="
-                +algorithm+"&email=tifedabug@voemail.com&code=2d3195a8ff5bfdc7");
+                + algorithm +"&email=tifedabug@voemail.com&code=2d3195a8ff5bfdc7");
 
         HttpURLConnection connessione = (HttpURLConnection) indirizzo.openConnection();
 
@@ -41,7 +42,7 @@ public class Database {
 
         String risposta = input.readLine();
 
-        if(risposta==null){
+        if(risposta==null||risposta.isBlank()){
 
             System.err.println("Password non trovata all'interno del database.");
 

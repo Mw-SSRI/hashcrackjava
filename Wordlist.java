@@ -16,15 +16,22 @@ public class Wordlist {
 
     //------------------------------------------------------------------------------------------------------------------
     //variabili
-    CalcolaHash calcolaHash = new CalcolaHash();
-
-    ScegliAttacco scegliAttacco = new ScegliAttacco();
+    private CalcolaHash calcolaHash;
 
     private String hashdatrovare;
 
     private String hashata = "";
 
-    Scanner tastiera = new Scanner(System.in);
+    private Scanner tastiera;
+
+    public Wordlist(String hashdatrovare) {
+
+        this.hashdatrovare = hashdatrovare;
+
+        calcolaHash = new CalcolaHash();
+
+        tastiera = new Scanner(System.in);
+    }
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -38,11 +45,9 @@ public class Wordlist {
 
         Scanner leggifile = new Scanner(file);
 
-        hashdatrovare = scegliAttacco.gethashdatrovare();
-
         calcolaHash.sethashfunction();
 
-        while (!hashata.equalsIgnoreCase(hashdatrovare) && leggifile.hasNextLine()) {
+        while ((!hashata.equalsIgnoreCase(hashdatrovare)) && (leggifile.hasNextLine())) {
 
                 String linea = leggifile.nextLine();
 
