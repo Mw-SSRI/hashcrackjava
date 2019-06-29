@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class ScegliAttacco {
 
-    Scanner tastiera = new Scanner(System.in);
+    private Scanner tastiera = new Scanner(System.in);
 
     private String hashdatrovare;
 
