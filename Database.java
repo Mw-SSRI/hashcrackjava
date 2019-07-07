@@ -25,32 +25,41 @@ public class Database {
         this.hashdatrovare = hashdatrovare;
 
         calcolaHash = new CalcolaHash();
+
     }
 
-    public void database() throws IOException {
+    public void database() {
 
-        String algorithm = calcolaHash.sethashfunction();
+        try {
 
-        System.out.println("Sto cercando...");
+            String algorithm = calcolaHash.sethashfunction();
 
-        URL indirizzo = new URL("https://md5decrypt.net/en/Api/api.php?hash="+hashdatrovare+"&hash_type="
-                + algorithm +"&email=tifedabug@voemail.com&code=2d3195a8ff5bfdc7");
+            System.out.println("Sto cercando...");
 
-        HttpURLConnection connessione = (HttpURLConnection) indirizzo.openConnection();
+            URL indirizzo = new URL("https://md5decrypt.net/en/Api/api.php?hash=" + hashdatrovare + "&hash_type="
+                    + algorithm + "&email=golodeteji@intempmail.com&code=cb51e9ebaeb4394f");
 
-        BufferedReader input = new BufferedReader(new InputStreamReader(connessione.getInputStream()));
+            HttpURLConnection connessione = (HttpURLConnection) indirizzo.openConnection();
 
-        String risposta = input.readLine();
+            BufferedReader input = new BufferedReader(new InputStreamReader(connessione.getInputStream()));
 
-        if(risposta==null||risposta.isBlank()){
+            String risposta = input.readLine();
 
-            System.err.println("Password non trovata all'interno del database.");
+            if (risposta == null || risposta.isBlank()) {
 
+                System.err.println("Password non trovata all'interno del database.");
+
+            }
+
+            else {
+
+                System.err.println("Password trovata: " + risposta);
+
+            }
         }
+        catch (IOException e){
 
-        else {
-
-            System.err.println("Password trovata: " + risposta);
+            System.out.println("Si è verificato un errore, il server potrebbe essere down.");
 
         }
 

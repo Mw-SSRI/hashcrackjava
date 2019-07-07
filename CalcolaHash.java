@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class CalcolaHash {
 
-        Scanner tastiera = new Scanner(System.in);
+        private Scanner tastiera = new Scanner(System.in);
 
         private String algorithm;
 
@@ -54,13 +54,14 @@ public class CalcolaHash {
                 String hashtext = decimal.toString(16);
 
                 while (hashtext.length() < 32) {
+
                     hashtext = "0" + hashtext;
+
                 }
 
                 return hashtext;
             }
-            //Se non va a buon fine il try
-            //-----------------------------------------------------------------------
+
             catch (NoSuchAlgorithmException e) {
 
                 System.out.println("Algoritmo non corretto: ");
@@ -68,7 +69,6 @@ public class CalcolaHash {
                 return null;
 
             }
-            //-----------------------------------------------------------------------
 
         }
         //--------------------------------------------------------------------------------------------------------------

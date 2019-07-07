@@ -14,8 +14,8 @@ import java.util.Scanner;
 
 public class Wordlist {
 
-    //------------------------------------------------------------------------------------------------------------------
-    //variabili
+    private long start;
+
     private CalcolaHash calcolaHash;
 
     private String hashdatrovare;
@@ -37,17 +37,24 @@ public class Wordlist {
 
     //------------------------------------------------------------------------------------------------------------------
     //Metodo che esegue l'attacco wordlist
-    public void wordlist() throws FileNotFoundException {
+    public void wordlist() {
 
-        System.out.println("Inserire il path della wordlist:");
+        try {
 
-        File file = new File(tastiera.nextLine());
+            System.out.println("Inserire il path della wordlist:");
 
-        Scanner leggifile = new Scanner(file);
+            File file = new File(tastiera.nextLine());
 
-        calcolaHash.sethashfunction();
+            Scanner leggifile = new Scanner(file);
 
-        while ((!hashata.equalsIgnoreCase(hashdatrovare)) && (leggifile.hasNextLine())) {
+            calcolaHash.sethashfunction();
+
+            //------------------------------------------------------------------------------------------------------------------
+            //variabili
+
+            start = System.currentTimeMillis();
+
+            while ((!hashata.equalsIgnoreCase(hashdatrovare)) && (leggifile.hasNextLine())) {
 
                 String linea = leggifile.nextLine();
 
@@ -55,15 +62,29 @@ public class Wordlist {
 
                 System.out.println(linea);
 
-                if (hashata.equalsIgnoreCase(hashdatrovare))
+                if (hashata.equalsIgnoreCase(hashdatrovare)) {
 
                     System.err.println("Password trovata: " + linea);
 
+                    System.err.println("Tempo impiegato: " + CalcolaTempoImpiegato.convertimillisecondi(System.currentTimeMillis() - start));
+
+                }
+
+            }
+
+            if (!hashata.equalsIgnoreCase(hashdatrovare)) {
+
+                System.err.println("Password non trovata nella wordlist.");
+
+                System.err.println("Tempo impiegato: " + CalcolaTempoImpiegato.convertimillisecondi(System.currentTimeMillis() - start));
+
+            }
+
         }
 
-        if(!hashata.equalsIgnoreCase(hashdatrovare)){
+        catch (FileNotFoundException e){
 
-            System.err.println("Password non trovata nella wordlist.");
+            System.out.println("Il path selezionato non corrisponde ad alcun file.");
 
         }
 

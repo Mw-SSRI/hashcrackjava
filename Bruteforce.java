@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class Bruteforce {
     //------------------------------------------------------------------------------------------------------------------
     //variabili
+    private long start;
     private Scanner tastiera = new Scanner(System.in);
     private CalcolaHash calcolaHash = new CalcolaHash();
     private char[] numeri = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
@@ -98,13 +99,17 @@ public class Bruteforce {
 
         }
 
+        start = System.currentTimeMillis();
 
+        int numeroPermutati = 1;
 
-        for(int numeroPermutati = 0; numeroPermutati < 20; numeroPermutati++) {
+        String prefisso = "";
 
-            String prefisso = "";
+        while(numeroPermutati < 20) {
 
             genera(scelta, prefisso, lunghezzacharset, numeroPermutati);
+
+            numeroPermutati++;
 
         }
 
@@ -122,6 +127,8 @@ public class Bruteforce {
 
                 System.err.println("Password trovata: " + prefisso);
 
+                System.err.println("Tempo impiegato: " + CalcolaTempoImpiegato.convertimillisecondi(System.currentTimeMillis() - start));
+
             }
 
             return;
@@ -134,7 +141,7 @@ public class Bruteforce {
 
             String nuovoPrefisso = prefisso + scelta[i];
 
-            genera(scelta, nuovoPrefisso, lunghezzacharset, numeroPermutati - 1);
+            genera(scelta, nuovoPrefisso, lunghezzacharset, numeroPermutati -1);
 
             i++;
 

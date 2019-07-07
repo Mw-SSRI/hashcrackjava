@@ -7,13 +7,20 @@
 
 package hashcrack;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 
 public class ScegliAttacco {
 
-    private static final Scanner tastiera = new Scanner(System.in);
+    private Scanner tastiera;
+
+    ScegliAttacco(){
+
+        tastiera = new Scanner(System.in);
+
+    }
+
+    // tastiera = new Scanner(System.in);
 
     //------------------------------------------------------------------------------------------------------------------
     //Metodo che serve a impostare l'hash che l'utente vuole crackare
@@ -30,7 +37,7 @@ public class ScegliAttacco {
 
     //------------------------------------------------------------------------------------------------------------------
     //Metodo che serve per far scegliere all'utente l'attacco da effettuare per crackare l'hash
-    public void choose() throws IOException {
+    public void choose() {
 
         String hashdatrovare = this.gethashdatrovare();
 
