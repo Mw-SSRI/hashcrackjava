@@ -31,6 +31,10 @@ public class Bruteforce {
 
     private String hashdatrovare;
 
+    private int lunghezzacharset;
+
+    private char[] scelta;
+
     private String hashata = "";
 
     public Bruteforce(String hashdatrovare) {
@@ -49,8 +53,6 @@ public class Bruteforce {
 
         String sceltaformato = tastiera.next();
 
-        char[] scelta;
-        int lunghezzacharset;
         if(sceltaformato.equalsIgnoreCase("numeri")){
 
             scelta = numeri;
@@ -99,25 +101,25 @@ public class Bruteforce {
 
         }
 
-        start = System.currentTimeMillis();
-
-        int numeroPermutati = 1;
+        int lunghezzaPassword = 1;
 
         String prefisso = "";
 
-        while(numeroPermutati < 20) {
+        start = System.currentTimeMillis();
 
-            genera(scelta, prefisso, lunghezzacharset, numeroPermutati);
+        while(lunghezzaPassword < 20) {
 
-            numeroPermutati++;
+            genera(prefisso, lunghezzaPassword);
+
+            lunghezzaPassword++;
 
         }
 
     }
 
-    private void genera(char[] scelta, String prefisso, int lunghezzacharset, int numeroPermutati) {
+    private void genera(String prefisso, int lunghezzaPassword) {
 
-        if (numeroPermutati == 0) {
+        if (lunghezzaPassword == 0) {
 
             hashata  = calcolaHash.calcolahash(prefisso);
 
@@ -141,7 +143,7 @@ public class Bruteforce {
 
             String nuovoPrefisso = prefisso + scelta[i];
 
-            genera(scelta, nuovoPrefisso, lunghezzacharset, numeroPermutati -1);
+            genera(nuovoPrefisso, lunghezzaPassword -1);
 
             i++;
 

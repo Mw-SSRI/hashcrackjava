@@ -9,7 +9,6 @@
  * rispettive classi.
  */
 
-
 package hashcrack;
 
 public class Main {

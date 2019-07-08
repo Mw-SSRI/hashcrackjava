@@ -1,7 +1,7 @@
 /**
  * Questa classe riceve in input il tempo, in millisecondi, impiegato a trovare la password attraverso
  * gli attacci bruteforce e wordlist, non attraverso l'attacco database, in quanto quest'ultimo, se
- * presenti all'interno del database, trove le password istantaneamente.
+ * presenti all'interno del database, trova le password istantaneamente.
  */
 
 package hashcrack;
