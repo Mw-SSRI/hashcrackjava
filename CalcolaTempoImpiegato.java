@@ -18,8 +18,6 @@ public class CalcolaTempoImpiegato {
 
         int secondo = 1000;
 
-        tempoimpiegato = (int) tempoimpiegato;
-
         if(tempoimpiegato >= ora) {
 
             ore = (int) (tempoimpiegato / ora);
@@ -27,6 +25,8 @@ public class CalcolaTempoImpiegato {
             tempoimpiegato = tempoimpiegato% ora;
 
         }
+
+        tempoimpiegato = (int) tempoimpiegato;
 
         if(tempoimpiegato >= minuto) {
 

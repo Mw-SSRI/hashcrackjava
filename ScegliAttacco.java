@@ -20,8 +20,6 @@ public class ScegliAttacco {
 
     }
 
-    // tastiera = new Scanner(System.in);
-
     //------------------------------------------------------------------------------------------------------------------
     //Metodo che serve a impostare l'hash che l'utente vuole crackare
     private String gethashdatrovare(){

@@ -14,8 +14,6 @@ import java.util.Scanner;
 
 public class Wordlist {
 
-    private long start;
-
     private CalcolaHash calcolaHash;
 
     private String hashdatrovare;
@@ -52,7 +50,7 @@ public class Wordlist {
             //------------------------------------------------------------------------------------------------------------------
             //variabili
 
-            start = System.currentTimeMillis();
+            long start = System.currentTimeMillis();
 
             while ((!hashata.equalsIgnoreCase(hashdatrovare)) && (leggifile.hasNextLine())) {
 

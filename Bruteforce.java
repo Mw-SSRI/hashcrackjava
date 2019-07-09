@@ -107,7 +107,7 @@ public class Bruteforce {
 
         start = System.currentTimeMillis();
 
-        while(lunghezzaPassword < 20) {
+        while((lunghezzaPassword < 20) && (!hashata.equalsIgnoreCase(hashdatrovare))) {
 
             genera(prefisso, lunghezzaPassword);
 
